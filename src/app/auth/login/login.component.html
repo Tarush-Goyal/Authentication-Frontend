@@ -1,0 +1,39 @@
+<div fxLayout="column" style="height: 100%">
+    <div fxLayout="row" fxLayoutAlign="center center" style="margin-top: 1rem">
+        <h1>Login</h1>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="center center" fxFlexFill>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" style="height: 100%">
+            <div fxLayout="column" fxLayoutAlign="space-evenly center" style="height: 100%">
+                <mat-form-field fxLayout="column">
+                    <input matInput placeholder="E-mail" formControlName="email" />
+                    <mat-error *ngIf="loginForm.get('email').hasError('required')">E-mail is required</mat-error>
+                    <mat-error *ngIf="loginForm.get('email').hasError('email')">E-mail is invalid</mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input matInput placeholder="Password" [type]="Type" ng-blur="focus=false" (click)="onFocus()"
+                        formControlName="password" />
+
+                    <button mat-icon-button matSuffix color="primary" type="button"
+                        [disabled]="loginForm.get('password').value.length < 1" (click)="showPassword()">
+                        <mat-icon>{{ visible }}</mat-icon>
+                    </button>
+
+                    <mat-error *ngIf="loginForm.get('password').hasError('required')">Password is required</mat-error>
+                    <mat-error *ngIf="loginForm.get('password').hasError('minlength')">Password is invalid</mat-error>
+                </mat-form-field>
+
+                <div fxLayout="column">
+                    <button mat-raised-button type="submit" [disabled]="loginForm.invalid" color="primary">
+                        Login
+                    </button>
+                    <h5>New User?
+                        <a mat-button style="padding:0" (click)="this.authService.goToSignup()">Signup</a>
+                    </h5>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

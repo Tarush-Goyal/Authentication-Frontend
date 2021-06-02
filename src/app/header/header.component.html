@@ -1,0 +1,32 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span (click)="displayToken()">My App</span>
+  <span class="example-spacer"></span>
+  <button mat-button *ngIf="this.token && this.type=='admin'" [routerLink]="['/admin/listproduct']">
+    List Product
+  </button>
+  <button mat-button *ngIf="this.token && this.type=='admin'" [routerLink]="['/admin/addproduct']">
+    Add Product
+  </button>
+
+  <button mat-button [matMenuTriggerFor]="menu">
+    <div fxLayout fxLayoutAlign="center center">
+      <span>Welcome {{this.auth.username}}</span>
+      <span mat-icon-button fxLayout fxLayoutAlign="center center">
+        <mat-icon>expand_more</mat-icon>
+        <!-- <mat-icon>arrow_drop_down</mat-icon> -->
+      </span>
+    </div>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-button *ngIf="!this.token" [routerLink]="['/auth']" style="width:100%">
+      Login
+    </button>
+    <button mat-button *ngIf="this.token" (click)="this.auth.logout()" style="width:100%">
+      Logout
+    </button>
+  </mat-menu>
+
+</mat-toolbar>

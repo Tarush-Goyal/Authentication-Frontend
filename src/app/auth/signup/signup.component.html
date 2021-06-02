@@ -1,0 +1,66 @@
+<div fxLayout="column" style="height: 100%">
+  <div fxLayout="row" fxLayoutAlign="center center" style="margin-top: 1rem">
+    <h1 (click)="clicked()">Signup</h1>
+  </div>
+
+  <div fxLayout="row" fxLayoutAlign="center center" fxFlexFill>
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" style="height: 100%">
+      <div fxLayout="column" fxLayoutAlign="space-evenly center" style="height: 100%">
+        <mat-form-field fxLayout="column">
+          <input matInput placeholder="E-mail" formControlName="email" />
+          <mat-error *ngIf="signupForm.get('email').hasError('required')">E-mail is required</mat-error>
+          <mat-error *ngIf="signupForm.get('email').hasError('email')">E-mail is invalid</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Password" [type]="Type" ng-blur="focus=false" (click)="onFocus()"
+            formControlName="password" />
+          <mat-hint align="end">{{ signupForm.get("password").value.length }}/6</mat-hint>
+          <mat-hint *ngIf="
+              (signupForm.controls.password.value.length < 6 &&
+                focus == true) ||
+              !signupForm.get('password').dirty
+            ">At least 6 characters</mat-hint>
+
+          <button mat-icon-button matSuffix color="primary" type="button"
+            [disabled]="signupForm.get('password').value.length < 1" (click)="showPassword()">
+            <mat-icon>{{ visible }}</mat-icon>
+          </button>
+
+          <mat-error *ngIf="signupForm.get('password').hasError('required')">Password is required</mat-error>
+          <mat-error *ngIf="signupForm.get('password').hasError('minlength')">Password is invalid</mat-error>
+        </mat-form-field>
+
+        <!-- Password2 -->
+        <mat-form-field>
+          <input matInput placeholder="Confirm Password" [type]="Type2" ng-blur="focus=false" (click)="onFocus2()"
+            formControlName="password2" />
+
+          <button mat-icon-button matSuffix color="primary" type="button"
+            [disabled]="signupForm.get('password2').value.length < 1" (click)="showPassword2()">
+            <mat-icon>{{ visible }}</mat-icon>
+          </button>
+
+          <mat-error *ngIf="signupForm.get('password2').errors">Passwords do not match</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Select Type of User</mat-label>
+          <mat-select formControlName="type">
+            <mat-option value="customer">Customer</mat-option>
+            <mat-option value="admin">Admin</mat-option>
+          </mat-select>
+          <mat-error *ngIf="signupForm.get('type').hasError('required')">Type is required</mat-error>
+        </mat-form-field>
+        <div fxLayout="column">
+          <button mat-raised-button type="submit" [disabled]="signupForm.invalid" color="primary">
+            Create Account
+          </button>
+          <h5>Already have an Account?
+            <a mat-button style="padding:0" (click)="this.authService.goToLogin()">Login</a>
+          </h5>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
