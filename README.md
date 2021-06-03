@@ -1,3 +1,5 @@
+A complete MEAN Stack Authentication System with features such as auth protected routes on frontend and backend, autologin and autologout, custom validators, display of all auth-related errors to users on UI etc.
+
 # Client
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.7.
